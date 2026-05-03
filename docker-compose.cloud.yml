@@ -13,6 +13,9 @@ services:
       retries: 10
     volumes:
       - engram-cloud-pg:/var/lib/postgresql/data
+    networks:
+      - default
+      - dokploy-network
 
   cloud:
     build:
@@ -31,6 +34,13 @@ services:
       ENGRAM_CLOUD_HOST: 0.0.0.0
       ENGRAM_PORT: "18080"
     command: ["cloud", "serve"]
+    networks:
+      - default
+      - dokploy-network
 
 volumes:
   engram-cloud-pg:
+
+networks:
+  dokploy-network:
+    external: true
